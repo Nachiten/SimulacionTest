@@ -25,7 +25,7 @@ IAValoresPosibles = [10, 5, 60, 15, 30, 35, 10, 20, 15]
 TAValoresPosibles = [40, 5, 15, 10, 30, 45, 15, 20, 10]
 
 # String que le da formato a la tabla que será printeada
-formatoString = "{:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7}"
+formatoString = "{:<8} {:<7} {:<5} {:<5} {:<7} {:<7} {:<7} {:<7} {:<5} {:<7} {:<5} {:<5} {:<7}"
 
 
 def comenzarSimulacion():
@@ -102,6 +102,7 @@ def ejecutarCicloSimulacion():
 
         # No se requiere vaciamiento (la fila quedo vacia)
         if NS == 0:
+            # print("No se requiere vaciamiento.")
             PPS = (STS - STLL) / NT
             PTO = (STO * 100) / T
 
@@ -110,6 +111,7 @@ def ejecutarCicloSimulacion():
 
         # Se requiere vaciamiento
         else:
+            # print("Se requiere vaciamiento de " + str(NS) + " personas.")
             TPLL = HV
             ejecutarCicloSimulacion()
 
@@ -128,7 +130,7 @@ def printNuevaFilaTabla():
 
     if not MOSTRAR_VALORES_REPETIDOS:
         for n in range(0, len(oldValues)):
-            if newValues[n] == oldValues[n]:
+            if newValues[n] == oldValues[n] and not n == 0:
                 newValuesModified.append("")
             else:
                 newValuesModified.append(newValues[n])
