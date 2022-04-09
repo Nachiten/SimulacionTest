@@ -1,3 +1,7 @@
+### CONFIG ###
+MOSTRAR_VALORES_REPETIDOS = True  # Muestra los valores repetidos en la tabla,
+# quitarlo hace que los valores no se vuelvan a mostrar hasta que cambien
+
 HV = 100000
 
 EVENTO = "---"
@@ -109,13 +113,33 @@ def ejecutarCicloSimulacion():
             TPLL = HV
             ejecutarCicloSimulacion()
 
-#oldValues = [0, 0, 0, 0, 0, 0, 0, 0, 0 ,0 ,0 ,0]
+
+oldValues = ["", "", "", "", "", "", "", "", "", "", "", ""]
+
 
 def printNuevaFilaTabla():
-    #newValues = [minutosAHora(T), NS, NT, minutosAHora(TPLL), minutosAHora(TPS)]
+    global oldValues
 
-    print(formatoString.format(EVENTO, minutosAHora(T), NS, NT, minutosAHora(TPLL), minutosAHora(TPS),
-                               minutosAHora(STLL), minutosAHora(STS), round(PPS, 2), minutosAHora(ITO), STO, round(PTO, 2), minutosAHora(TF)))
+    newValues = [minutosAHora(T), NS, NT, minutosAHora(TPLL), minutosAHora(TPS),
+                 minutosAHora(STLL), minutosAHora(STS), round(PPS, 2), minutosAHora(ITO), STO,
+                 round(PTO, 2), minutosAHora(TF)]
+
+    newValuesModified = []
+
+    if not MOSTRAR_VALORES_REPETIDOS:
+        for n in range(0, len(oldValues)):
+            if newValues[n] == oldValues[n]:
+                newValuesModified.append("")
+            else:
+                newValuesModified.append(newValues[n])
+        oldValues = newValues
+    else:
+        newValuesModified = newValues
+
+    print(formatoString.format(EVENTO,
+                               newValuesModified[0], newValuesModified[1], newValuesModified[2], newValuesModified[3],
+                               newValuesModified[4], newValuesModified[5], newValuesModified[6], newValuesModified[7],
+                               newValuesModified[8], newValuesModified[9], newValuesModified[10], newValuesModified[11]))
 
 
 def printPrimeraFilaTabla():
