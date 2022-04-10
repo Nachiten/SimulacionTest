@@ -1,6 +1,11 @@
-### CONFIG ###
-MOSTRAR_VALORES_REPETIDOS = True  # Muestra los valores repetidos en la tabla,
-# quitarlo hace que los valores no se vuelvan a mostrar hasta que cambien
+#### CONFIG ###
+
+# False - Los valores no se muestran hasta cambiar
+# True - Los valores se muestran siempre
+MOSTRAR_VALORES_REPETIDOS = False
+
+# Cantidad de decimales que se muestran para los resultados
+DECIMALES_PRECISION = 3
 
 HV = 100000
 
@@ -24,8 +29,12 @@ TA = 0
 IAValoresPosibles = [10, 5, 60, 15, 30, 35, 10, 20, 15]
 TAValoresPosibles = [40, 5, 15, 10, 30, 45, 15, 20, 10]
 
+anchoColumnaDecimales = str(DECIMALES_PRECISION + 4)
+
 # String que le da formato a la tabla que será printeada
-formatoString = "{:<8} {:<7} {:<5} {:<5} {:<7} {:<7} {:<7} {:<7} {:<5} {:<7} {:<5} {:<5} {:<7}"
+formatoString = "{:<8} {:<7} {:<5} {:<5} {:<7} {:<7} {:<7} " \
+                "{:<7} {:<" + anchoColumnaDecimales + \
+                "} {:<7} {:<7} {:<" + anchoColumnaDecimales + "} {:<7}"
 
 
 def comenzarSimulacion():
@@ -123,8 +132,8 @@ def printNuevaFilaTabla():
     global oldValues
 
     newValues = [minutosAHora(T), NS, NT, minutosAHora(TPLL), minutosAHora(TPS),
-                 minutosAHora(STLL), minutosAHora(STS), round(PPS, 2), minutosAHora(ITO), STO,
-                 round(PTO, 2), minutosAHora(TF)]
+                 minutosAHora(STLL), minutosAHora(STS), round(PPS, 3), minutosAHora(ITO), STO,
+                 round(PTO, 3), minutosAHora(TF)]
 
     newValuesModified = []
 
@@ -141,7 +150,8 @@ def printNuevaFilaTabla():
     print(formatoString.format(EVENTO,
                                newValuesModified[0], newValuesModified[1], newValuesModified[2], newValuesModified[3],
                                newValuesModified[4], newValuesModified[5], newValuesModified[6], newValuesModified[7],
-                               newValuesModified[8], newValuesModified[9], newValuesModified[10], newValuesModified[11]))
+                               newValuesModified[8], newValuesModified[9], newValuesModified[10],
+                               newValuesModified[11]))
 
 
 def printPrimeraFilaTabla():
